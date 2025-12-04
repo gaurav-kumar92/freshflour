@@ -1,0 +1,58 @@
+.hero {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  align-items: flex-start; /* Changed from center */
+   /* Adjusted padding */
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background: url('/images/hero-image.png') no-repeat center center/cover;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #256d47;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  background-color: #2E8B57; /* SeaGreen */
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.ctaButton:hover {
+  background-color: #256d47; /* Darker green for hover */
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .ctaButton {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

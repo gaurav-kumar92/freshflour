@@ -1,0 +1,22 @@
+.card {
+  flex: 0 0 auto;
+  width: 150px;
+  margin-right: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.image {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}

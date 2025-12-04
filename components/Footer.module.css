@@ -1,0 +1,43 @@
+.footer {
+  background-color: #2E8B57; /* SeaGreen */
+  color: white;
+  padding: 0.5rem 0;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialLinks a {
+  color: white;
+  margin-left: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  font-size: 1.2rem; /* Increased icon size */
+}
+
+.socialLinks a:hover {
+  color: #c0c0c0; /* Lighter color for hover */
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .socialLinks {
+    margin-top: 0.5rem;
+  }
+
+  .socialLinks a {
+    margin: 0 0.5rem;
+  }
+}

@@ -1,0 +1,19 @@
+
+[
+  {
+    "name": "Artisanal Breads",
+    "imageUrl": "/images/bread.png"
+  },
+  {
+    "name": "Whole Grains",
+    "imageUrl": "/images/whole-grains.png"
+  },
+  {
+    "name": "Pastry Flours",
+    "imageUrl": "/images/pastry.png"
+  },
+  {
+    "name": "Gluten-Free",
+    "imageUrl": "/images/gluten-free.png"
+  }
+]

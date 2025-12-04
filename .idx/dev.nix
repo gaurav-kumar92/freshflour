@@ -24,9 +24,7 @@
         npm-install = "npm ci --no-audit --prefer-offline --no-progress --timing";
         # Open editors for the following files by default, if they exist:
         default.openFiles = [
-          # Cover all the variations of language, src-dir, router (app/pages)
-          "pages/index.tsx" "pages/index.js"
-          "src/pages/index.tsx" "src/pages/index.js"
+          # Cover all the variations of language, src-dir, router (app)
           "app/page.tsx" "app/page.js"
           "src/app/page.tsx" "src/app/page.js"
         ];

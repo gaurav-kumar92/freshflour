@@ -1,0 +1,48 @@
+.ourStoryContainer {
+  padding: 3rem 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.textContainer {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #666;
+}
+
+.textContainer p {
+  margin-bottom: 1.5rem;
+}
+
+.imageContainer {
+  text-align: center;
+}
+
+.storyImage {
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .imageContainer {
+    order: -1; /* Move image to the top on mobile */
+  }
+}
