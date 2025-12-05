@@ -20,31 +20,18 @@ The application aims for a modern, clean, and visually appealing aesthetic.
 
 ## Implemented Features
 
-*   **Header:**
-    *   A persistent header is present on all pages.
-    *   **Logo:** A bold, green "Fresh Flour" logo that links to the homepage.
-    *   **Navigation:** A responsive navigation menu that includes links for "Monthly subscription," "Category," "Contact," and a shopping cart icon. The navigation adapts to mobile screens using a burger menu.
-*   **Homepage Hero:**
-    *   A full-width hero section with a background image and a dark overlay.
-    *   A prominent "The Finest Flours, Delivered Fresh" title and a subtitle.
-    *   A clear call-to-action "Shop Now" button.
-*   **Category Carousel:**
-    *   A "Shop by Category" section with a horizontally scrolling list of flour types.
-*   **Best Sellers Section:**
-    *   A grid of the top-selling flour products, each with an image, name, and price.
-*   **Why Choose Us Section:**
-    *   A section highlighting the key benefits of the brand, such as "Quality Ingredients," "Fast Delivery," and "Best Prices," with accompanying icons.
-*   **New Launch Section:**
-    *   A promotional section for a new product with a call-to-action.
-*   **Testimonials Section:**
-    *   A section to display customer feedback with quotes, names, and images.
-*   **Our Story Section:**
-    *   A section to share the brand's narrative with a two-column layout for text and an image.
-*   **Footer:**
-    *   A footer with social media links and a copyright notice. The background is a consistent green color (`#2E8B57`).
-*   **Dynamic Homepage Sections:**
-    *   The homepage sections can be toggled on or off using a connected Google Sheet, allowing for content management without code changes.
+*   **Header:** A persistent header with logo, navigation, and cart icon.
+*   **Homepage Sections:** Includes Hero, Category Carousel, Best Sellers, Why Choose Us, New Launch, Testimonials, and Our Story sections.
+*   **Footer:** A consistent footer with social media links and copyright.
+*   **Dynamic Product Pages:** A dynamic routing system (`/products/[slug]`) to display individual product details.
+*   **Dynamic Homepage Content (via Google Sheets):**
+    *   **Section Visibility:** Homepage sections can be toggled on or off from a Google Sheet.
+    *   **"Our Story" Content:** The text for the "Our Story" section is fetched dynamically.
+    *   **Testimonials Content:** The testimonials (quote and name) are fetched dynamically from a Google Sheet. The design is text-only.
 
 ## Current Plan
 
-The previous development plan is complete. The application now includes a fully featured homepage with dynamic content capabilities. The next steps are open for new feature requests or refinements.
+This plan details the correction of a bug in the "Testimonials" section.
+
+*   **Bug Fix:** Corrected an error in the `components/Testimonials.tsx` file that was causing extra backslash characters to appear around the testimonial quotes.
+*   **Update Blueprint:** The `blueprint.md` file has been updated to reflect this correction.

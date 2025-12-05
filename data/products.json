@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "slug": "organic-whole-wheat-flour",
+    "name": "Organic Whole Wheat Flour",
+    "price": "$12.99",
+    "image": "https://via.placeholder.com/500"
+  },
+  {
+    "id": 2,
+    "slug": "almond-flour",
+    "name": "Almond Flour",
+    "price": "$18.99",
+    "image": "https://via.placeholder.com/500"
+  },
+  {
+    "id": 3,
+    "slug": "organic-coconut-flour",
+    "name": "Organic Coconut Flour",
+    "price": "$15.99",
+    "image": "https://via.placeholder.com/500"
+  },
+  {
+    "id": 4,
+    "slug": "organic-all-purpose-flour",
+    "name": "Organic All-Purpose Flour",
+    "price": "$10.99",
+    "image": "https://via.placeholder.com/500"
+  },
+  {
+    "id": 5,
+    "slug": "organic-bread-flour",
+    "name": "Organic Bread Flour",
+    "price": "$11.99",
+    "image": "https://via.placeholder.com/500"
+  },
+  {
+    "id": 6,
+    "slug": "organic-cake-flour",
+    "name": "Organic Cake Flour",
+    "price": "$13.99",
+    "image": "https://via.placeholder.com/500"
+  }
+]
