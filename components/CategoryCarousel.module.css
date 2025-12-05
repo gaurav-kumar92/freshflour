@@ -11,6 +11,7 @@
 
 .carousel {
   display: flex;
+  justify-content: center; /* Center the items */
   overflow-x: auto;
   padding-bottom: 1rem;
   scrollbar-width: thin; /* For Firefox */

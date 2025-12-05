@@ -6,14 +6,14 @@
   },
   {
     "name": "Whole Grains",
-    "imageUrl": "/images/whole-grains.png"
+    "imageUrl": "/images/bread.png"
   },
   {
     "name": "Pastry Flours",
-    "imageUrl": "/images/pastry.png"
+    "imageUrl": "/images/bread.png"
   },
   {
     "name": "Gluten-Free",
-    "imageUrl": "/images/gluten-free.png"
+    "imageUrl": "/images/bread.png"
   }
 ]

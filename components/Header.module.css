@@ -5,3 +5,35 @@
   padding: 1rem 2rem;
   background-color: #f8f9fa;
 }
+
+.navWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.cartLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 1.5rem; /* Adjust size as needed */
+  margin-left: 2rem; /* Add some space between nav and cart */
+}
+
+.cartBadge {
+  position: absolute;
+  top: 0px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 18px; /* Fixed width */
+  height: 18px; /* Fixed height */
+  font-size: 0.7rem; /* Smaller font */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
