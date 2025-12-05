@@ -1,5 +1,5 @@
 .bestSellersContainer {
-  padding: 2rem 0;
+  padding: 2rem 1rem;
 }
 
 .title {
@@ -11,64 +11,7 @@
 
 .carousel {
   display: flex;
-  justify-content: center; /* Center the items */
-  gap: 1.5rem; /* Use gap for even spacing */
-  overflow-x: auto;
-  padding-bottom: 1rem; /* For scrollbar spacing */
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: #2E8B57 #f1f1f1; /* For Firefox */
-}
-
-/* For Chrome, Safari and Opera */
-.carousel::-webkit-scrollbar {
-  height: 8px;
-}
-
-.carousel::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.carousel::-webkit-scrollbar-thumb {
-  background: #2E8B57;
-  border-radius: 4px;
-}
-
-.carousel::-webkit-scrollbar-thumb:hover {
-  background: #256d47;
-}
-
-.productCard {
-  flex: 0 0 auto;
-  width: 220px;
-  /* margin-right is replaced by gap on the container */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.productCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.productImage {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.productName {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 1rem 0.5rem;
-  color: #333;
-}
-
-.productPrice {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #2E8B57;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
 }

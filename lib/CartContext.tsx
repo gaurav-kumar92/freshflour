@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 
@@ -6,7 +6,7 @@ import React, { createContext, useContext, useReducer, useEffect, ReactNode } fr
 export interface CartItem {
   sku: string;
   name: string;
-  price: number;
+  price: number | string; // Allow price to be string initially
   image: string;
   quantity: number;
 }
@@ -21,10 +21,24 @@ interface CartContextType extends CartState {
   updateQuantity: (sku: string, quantity: number) => void;
   clearCart: () => void;
   itemCount: number;
+  subtotal: number;
 }
 
 // 2. Create the context with a default value
 const CartContext = createContext<CartContextType | undefined>(undefined);
+
+// Helper to safely parse price
+const getSafePrice = (price: string | number): number => {
+    if (typeof price === 'number') return price;
+    if (typeof price === 'string') {
+        // Remove currency symbols, commas, and other non-numeric characters
+        const numericString = price.replace(/[^0-9.-]+/g, "");
+        const parsed = parseFloat(numericString);
+        return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
+}
+
 
 // 3. Define the reducer to manage cart state changes
 
@@ -44,6 +58,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         updatedItems[existingItemIndex].quantity += 1;
         return { ...state, items: updatedItems };
       } else {
+        // When adding, we don't need to parse price here, as the subtotal calculation handles it.
         return { ...state, items: [...state.items, { ...action.payload, quantity: 1 }] };
       }
     }
@@ -99,7 +114,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         removeFromCart: (sku) => dispatch({ type: 'REMOVE_FROM_CART', payload: { sku } }),
         updateQuantity: (sku, quantity) => dispatch({ type: 'UPDATE_QUANTITY', payload: { sku, quantity } }),
         clearCart: () => dispatch({ type: 'CLEAR_CART' }),
-        itemCount: state.items.reduce((total, item) => total + item.quantity, 0)
+        itemCount: state.items.reduce((total, item) => total + item.quantity, 0),
+        // Use the safe price helper in the subtotal calculation
+        subtotal: state.items.reduce((total, item) => total + (getSafePrice(item.price) * item.quantity), 0)
     };
 
     return (

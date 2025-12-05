@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  min-height: 80vh;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2a3a4b;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.summary {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.summary p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin: 0.5rem 0;
+}
+
+.summary p:last-child {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #2d3748;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.payButton {
+  background-color: #38a169; /* Green-500 */
+  color: white;
+  font-weight: bold;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(56, 161, 105, 0.3);
+}
+
+.payButton:hover {
+  background-color: #2f855a; /* Green-600 */
+  transform: translateY(-2px);
+}
+
+.payButton:active {
+  transform: translateY(0);
+}

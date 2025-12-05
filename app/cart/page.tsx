@@ -8,16 +8,14 @@ import styles from './CartPage.module.css';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 
 const CartPage = () => {
-  const { items, removeFromCart, updateQuantity, itemCount, clearCart } = useCart();
+  // The subtotal is now directly from the context, which already handles price conversion
+  const { items, removeFromCart, updateQuantity, itemCount, clearCart, subtotal } = useCart();
 
-  // Ensure price is a number for all calculations
+  // This helper is no longer needed here, but we need one for the line item total.
   const getSafePrice = (price: string | number) => {
       if (typeof price === 'number') return price;
-      // Remove the dollar sign and convert to a float
       return parseFloat(price.replace(/[^0-9.-]+/g,""));
   }
-
-  const subtotal = items.reduce((total, item) => total + getSafePrice(item.price) * item.quantity, 0);
 
   if (itemCount === 0) {
     return (
@@ -37,6 +35,7 @@ const CartPage = () => {
       <div className={styles.cartLayout}>
         <div className={styles.cartItems}>
           {items.map(item => {
+            // We still need to calculate the individual item total safely.
             const safePrice = getSafePrice(item.price);
             return (
               <div key={item.sku} className={styles.cartItem}>
@@ -46,7 +45,8 @@ const CartPage = () => {
                 <div className={styles.itemDetails}>
                   <h3 className={styles.itemName}>{item.name}</h3>
                   <p className={styles.itemSku}>SKU: {item.sku}</p>
-                  <p className={styles.itemPrice}>₹{safePrice.toFixed(2)}</p>
+                   {/* Display the price as a formatted string */}
+                  <p className={styles.itemPrice}>{typeof item.price === 'number' ? `₹${item.price.toFixed(2)}` : item.price}</p>
                 </div>
                 <div className={styles.itemActions}>
                    <div className={styles.quantityControl}>
@@ -57,7 +57,8 @@ const CartPage = () => {
                   <button onClick={() => removeFromCart(item.sku)} className={styles.removeButton}><FaTrash /></button>
                 </div>
                 <div className={styles.itemTotal}>
-                  <p>{(safePrice * item.quantity).toFixed(2)}</p>
+                  {/* Format the calculated item total */}
+                  <p>₹{(safePrice * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             );
@@ -67,7 +68,8 @@ const CartPage = () => {
             <h2>Order Summary</h2>
             <div className={styles.summaryLine}>
                 <span>Subtotal ({itemCount} items)</span>
-                <span>{subtotal.toFixed(2)}</span>
+                 {/* Use the subtotal from the context */}
+                <span>₹{subtotal.toFixed(2)}</span>
             </div>
             <div className={styles.summaryLine}>
                 <span>Shipping</span>
@@ -75,9 +77,10 @@ const CartPage = () => {
             </div>
             <div className={`${styles.summaryLine} ${styles.summaryTotal}`}>
                 <span>Total</span>
+                 {/* The total is the same as the subtotal since shipping is free */}
                 <span>₹{subtotal.toFixed(2)}</span>
             </div>
-            <button className={styles.checkoutButton}>Proceed to Checkout</button>
+            <Link href="/checkout" className={styles.checkoutButton}>Proceed to Checkout</Link>
             <button onClick={clearCart} className={styles.clearCartButton}>Clear Cart</button>
         </div>
       </div>

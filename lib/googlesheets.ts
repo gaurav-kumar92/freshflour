@@ -26,6 +26,27 @@ export async function getSheetData(spreadsheetId: string, range: string) {
   }
 }
 
+export async function getStoreCategories(spreadsheetId: string) {
+    console.log(`[getStoreCategories] Fetching categories for spreadsheet: ${spreadsheetId}`);
+    const range = 'Categories!A:A';
+    const data = await getSheetData(spreadsheetId, range);
+    if (!data) {
+        console.log('[getStoreCategories] No data returned for categories range.');
+        return [];
+    }
+
+    // The data arrives as an array of arrays (e.g., [['single grain'], ['multi grain']]).
+    // We use flat() to turn it into a single array, then map and filter.
+    const categories = data
+        .flat() 
+        .map(category => String(category).trim())
+        .filter(category => category); // Filter out any empty strings
+
+    console.log(`[getStoreCategories] Found categories: ${categories.join(', ')}`);
+    return categories;
+}
+
+
 export async function getProductBySku(spreadsheetId: string, sku: string) {
     if (!sku) {
         console.error("[Diagnostic] getProductBySku was called without a valid SKU.");

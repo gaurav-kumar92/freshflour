@@ -10,6 +10,13 @@
   transform: translateY(-5px);
 }
 
+/* New style to make the link a block and remove text decoration */
+.cardLink {
+    display: block;
+    text-decoration: none;
+    color: inherit; /* Inherit the text color from the parent */
+}
+
 .image {
   border-radius: 8px;
   object-fit: cover;

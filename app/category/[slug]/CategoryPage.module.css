@@ -1,0 +1,51 @@
+/* Container for the whole page */
+.pageContainer {
+    padding: 2rem 4rem;
+    background-color: #f9fafb; /* Lighter background */
+}
+
+/* Category Title styling */
+.categoryTitle {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Grid for displaying products */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Loading state message */
+.loading {
+    text-align: center;
+    padding: 6rem 2rem;
+    font-size: 1.5rem;
+    color: #4b5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: 1.5rem;
+    }
+    .categoryTitle {
+        font-size: 2.2rem;
+    }
+    .productGrid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .productGrid {
+        /* On very small screens, just stack them */
+        grid-template-columns: 1fr;
+    }
+}
