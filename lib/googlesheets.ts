@@ -28,19 +28,17 @@ export async function getSheetData(spreadsheetId: string, range: string) {
 
 export async function getStoreCategories(spreadsheetId: string) {
     console.log(`[getStoreCategories] Fetching categories for spreadsheet: ${spreadsheetId}`);
-    const range = 'Categories!A:A';
+    const range = 'Categories!A2:A';
     const data = await getSheetData(spreadsheetId, range);
     if (!data) {
         console.log('[getStoreCategories] No data returned for categories range.');
         return [];
     }
 
-    // The data arrives as an array of arrays (e.g., [['single grain'], ['multi grain']]).
-    // We use flat() to turn it into a single array, then map and filter.
     const categories = data
         .flat() 
         .map(category => String(category).trim())
-        .filter(category => category); // Filter out any empty strings
+        .filter(category => category); 
 
     console.log(`[getStoreCategories] Found categories: ${categories.join(', ')}`);
     return categories;
@@ -54,7 +52,7 @@ export async function getProductBySku(spreadsheetId: string, sku: string) {
     }
 
     const urlSku = sku.trim();
-    console.log(`[Diagnostic] Searching for SKU: "${urlSku}"`);
+    console.log(`[Diagnostic] Searching for SKU: \"${urlSku}\"`);
 
     const range = 'Products!A:J';
     const data = await getSheetData(spreadsheetId, range);
@@ -90,12 +88,12 @@ export async function getProductBySku(spreadsheetId: string, sku: string) {
     }
 
     if (!productRow) {
-        console.error(`[Diagnostic] SKU "${urlSku}" not found in any of the ${data.length} data rows.`);
+        console.error(`[Diagnostic] SKU \"${urlSku}\" not found in any of the ${data.length} data rows.`);
         return null;
     }
 
     const product = header.reduce((obj, key, index) => {
-        obj[key.trim()] = productRow[index];
+        obj[key.trim().toLowerCase()] = productRow[index];
         return obj;
     }, {} as Record<string, any>);
 
@@ -103,14 +101,14 @@ export async function getProductBySku(spreadsheetId: string, sku: string) {
     if (product.price) product.price = Number(product.price);
     if (product.rating) product.rating = parseFloat(product.rating);
     if (product.review) product.review = parseInt(product.review, 10);
-    if (product.inStock) product.inStock = String(product.inStock).toUpperCase() === 'TRUE';
+    if (product.instock) product.instock = String(product.instock).toUpperCase() === 'TRUE';
 
     return product;
 }
 
 
 export async function getBestSellers(spreadsheetId: string) {
-    const range = 'Products!A:J';
+    const range = 'Products!A:K';
     const data = await getSheetData(spreadsheetId, range);
     if (!data || data.length < 2) return [];
 
@@ -123,29 +121,33 @@ export async function getBestSellers(spreadsheetId: string) {
     const priceIndex = lowerCaseHeader.indexOf('price');
     const imageIndex = lowerCaseHeader.indexOf('image');
     const isBestsellerIndex = lowerCaseHeader.indexOf('isbestseller');
+    const descriptionIndex = lowerCaseHeader.indexOf('description');
+    const categoryIndex = lowerCaseHeader.indexOf('category');
 
     return data
         .filter(row => row[isBestsellerIndex] && String(row[isBestsellerIndex]).toUpperCase() === 'TRUE')
         .map(row => ({
             sku: row[skuIndex] ? String(row[skuIndex]).trim() : '',
-            name: row[nameIndex],
-            price: row[priceIndex],
-            image: "/flour3.jpg",
+            name: String(row[nameIndex] || ''),
+            price: String(row[priceIndex] || '0'),
+            image: String(row[imageIndex] || '/flour3.jpg'),
+            description: String(row[descriptionIndex] || ''),
+            Category: String(row[categoryIndex] || ''),
         }));
 }
+
 
 export async function getAllProductSkus(spreadsheetId: string) {
     const range = 'Products!A2:A';
     const data = await getSheetData(spreadsheetId, range);
     if (!data) return [];
 
-    // Map over rows, trim the SKU, and filter out any that are empty or invalid.
     const skus = data
         .map(row => {
             const sku = row && row[0] ? String(row[0]).trim() : null;
             return sku ? { sku } : null;
         })
-        .filter(Boolean); // This cleverly removes all null/undefined entries.
+        .filter(Boolean); 
 
     return skus;
 }

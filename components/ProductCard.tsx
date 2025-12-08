@@ -3,15 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './ProductCard.module.css';
 
-// Defining the Product interface here so the component is self-contained
 export interface Product {
   sku: string;
   name: string;
   price: string;
   image: string;
   Category: string;
-  Description: string;
-  // Add any other relevant product properties here
 }
 
 interface ProductCardProps {
@@ -19,14 +16,16 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  // Handle cases where product might be null or undefined
-  if (!product) {
-    return null;
-  }
+  if (!product) return null;
 
   const { sku, name, price, image: imageUrl } = product;
 
-  // A more robust way to link to a product details page
+  // SAFETY CHECK – avoids "undefined" SKU links
+  if (!sku) {
+    console.error("Product missing SKU:", product);
+    return null;
+  }
+
   const productUrl = `/product/${sku}`;
 
   return (

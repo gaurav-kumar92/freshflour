@@ -14,15 +14,16 @@ const slugify = (text: string) => {
     return text.toLowerCase().replace(/\s+/g, '-');
 };
 
-// Use the hardcoded SPREADSHEET_ID, as the environment variable is not set.
-const SPREADSHEET_ID = '1dXQWUBw02vD5x57m-c6rGEibuN_28qK-x7Qm84Y3034';
-
 export default async function CategoriesPage() {
     let categories: string[] = [];
     let error: string | null = null;
 
     try {
-        categories = await getStoreCategories(SPREADSHEET_ID);
+        const sheetId = process.env.GOOGLE_SHEET_ID;
+        if (!sheetId) {
+            throw new Error("Google Sheet ID is not configured.");
+        }
+        categories = await getStoreCategories(sheetId);
     } catch (e) {
         console.error("Failed to fetch categories:", e);
         error = "Could not load categories. Please try again later.";

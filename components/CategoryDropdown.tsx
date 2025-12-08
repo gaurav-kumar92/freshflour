@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './CategoryDropdown.module.css';
 import { FaChevronDown } from 'react-icons/fa';
@@ -10,19 +10,29 @@ const slugify = (text: string) => {
     return text.toLowerCase().replace(/\s+/g, '-');
 };
 
-// Using a hardcoded list as a placeholder
-const categories = [
-    "All-Purpose Flour",
-    "Whole Wheat Flour",
-    "Bread Flour",
-    "Cake Flour",
-    "Gluten-Free Flour"
-];
-
 export default function CategoryDropdown() {
     const [isOpen, setIsOpen] = useState(false);
+    const [categories, setCategories] = useState<string[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
-    // Correctly handle mouse enter and leave to toggle the dropdown
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('/api/categories');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch categories');
+                }
+                const data = await response.json();
+                setCategories(data);
+            } catch (err) {
+                setError(err.message);
+                console.error(err);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
     const handleMouseEnter = () => {
         setIsOpen(true);
     };
@@ -42,15 +52,20 @@ export default function CategoryDropdown() {
             </button>
             {isOpen && (
                 <div className={styles.dropdownMenu}>
-                    {categories.map(category => (
-                        <Link 
-                            key={category} 
-                            href={`/category/${slugify(category)}`}
-                            className={styles.dropdownItem}
-                        >
-                            {category}
-                        </Link>
-                    ))}
+                    {error && <p className={styles.error}>{error}</p>}
+                    {categories.length > 0 ? (
+                        categories.map(category => (
+                            <Link 
+                                key={category} 
+                                href={`/category/${slugify(category)}`}
+                                className={styles.dropdownItem}
+                            >
+                                {category}
+                            </Link>
+                        ))
+                    ) : (
+                        !error && <p className={styles.dropdownItem}>Loading...</p>
+                    )}
                 </div>
             )}
         </div>

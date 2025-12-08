@@ -1,7 +1,6 @@
-'use server';
 
 import React from 'react';
-import { getSheetData } from '../../../lib/google-sheets.ts'; // Corrected Relative Path
+import { getSheetData } from '@/lib/googlesheets';
 import ProductCard from '@/components/ProductCard';
 import styles from './CategoryPage.module.css';
 import { Metadata } from 'next';
@@ -39,12 +38,25 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     let error = null;
 
     try {
-        const data = await getSheetData();
-        // The filtering logic assumes the 'Category' column in your sheet
-        // matches the slugified category name.
-        products = data.products.filter(p => 
-            p.Category.toLowerCase().replace(/\s+/g, '-') === slug
-        );
+        const sheetId = process.env.GOOGLE_SHEET_ID;
+        if (!sheetId) {
+            throw new Error("Google Sheet ID is not configured.");
+        }
+        const data = await getSheetData(sheetId, "Products");
+        if (data) {
+            const header = data.shift() || [];
+            const productsData = data.map(row => {
+                let product: any = {};
+                header.forEach((key, index) => {
+                    product[key.toLowerCase()] = row[index];
+                });
+                return product as Product;
+            });
+
+            products = productsData.filter((p: Product) => 
+                p.Category && p.Category.toLowerCase().replace(/\s+/g, '-') === slug
+            );
+        }
     } catch (e) {
         console.error("Failed to fetch sheet data:", e);
         error = "Could not load product data. Please try again later.";
@@ -60,7 +72,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
             {products.length > 0 ? (
                 <div className={styles.productGrid}>
                     {products.map(product => (
-                        <ProductCard key={product.SKU} product={product} />
+                        <ProductCard key={product.sku} product={product} />
                     ))}
                 </div>
             ) : (
@@ -73,12 +85,19 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 // Generate static paths for all categories to improve build times and performance
 export async function generateStaticParams() {
     try {
-        const data = await getSheetData();
-        const categories = [...new Set(data.products.map(p => p.Category))];
+        const sheetId = process.env.GOOGLE_SHEET_ID;
+        if (!sheetId) {
+            throw new Error("Google Sheet ID is not configured.");
+        }
+        const data = await getSheetData(sheetId, "Categories!A:A");
+        if (data) {
+            const categories = data.flat().map(String);
         
-        return categories.map(category => ({
-            slug: category.toLowerCase().replace(/\s+/g, '-'),
-        }));
+            return categories.map(category => ({
+                slug: category.toLowerCase().replace(/\s+/g, '-'),
+            }));
+        } 
+        return [];
     } catch (error) {
         console.error("Could not generate static params:", error);
         // Return an empty array if fetching fails, so the build doesn't break
